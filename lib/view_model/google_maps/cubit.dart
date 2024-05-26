@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:Google_maps/view_model/google_maps/states.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -255,7 +257,7 @@ class MapsCubit extends Cubit<GoogleMapsStates>
     await googleMapsRepo.getRoute(
         originLocation: originLocation,
         desLocation: desLocation
-    ).then((getRouteResult)
+    ).then((getRouteResult)async
     {
       if(getRouteResult.isSuccess())
         {
@@ -276,7 +278,7 @@ class MapsCubit extends Cubit<GoogleMapsStates>
 
           if(routePolyLine!.points.length < 3)
           {
-            playArriveSound();
+            await arrive();
           }
           emit(GetLocationRouteSuccess());
         }
@@ -290,16 +292,31 @@ class MapsCubit extends Cubit<GoogleMapsStates>
     });
   }
 
-  Future<void> playArriveSound()async
+  late AudioPlayer player;
+  Future<void> playSound(SoundCode soundCode)async
   {
-    final player = AudioPlayer();
-    await player.play(UrlSource('https://example.com/my-audio.wav'));
+    player = AudioPlayer();
+    switch(soundCode)
+    {
+      case SoundCode.arrive:
+        await player.play(UrlSource('https://example.com/my-audio.wav'));
+
+      case SoundCode.finish:
+        await player.play(UrlSource('https://example.com/my-audio.wav'));
+    }
   }
 
-  void finish()
+  Future<void> arrive()async
+  {
+    await playSound(SoundCode.arrive);
+  }
+
+  Future<void> finish()async
   {
     isAnotherRouteCalculated = false;
-
+    polyLines = {};
     emit(FinishAndReturn());
+    await playSound(SoundCode.finish);
   }
 }
+enum SoundCode{ arrive,finish }
