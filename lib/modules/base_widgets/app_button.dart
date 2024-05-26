@@ -1,4 +1,4 @@
-import 'package:cis_project/extensions/mediaQuery.dart';
+import 'package:Google_maps/extensions/mediaQuery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'myText.dart';

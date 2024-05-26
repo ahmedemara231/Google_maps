@@ -13,6 +13,8 @@ dependencies:
 
 #  Ui
   cupertino_icons: ^1.0.2
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.10
   fluttertoast: ^8.2.4
   audioplayers: ^5.2.1
   flutter_screenutil: ^5.9.0
@@ -32,6 +34,19 @@ dependencies:
   location: ^5.0.0
   uuid: ^4.4.0
   flutter_polyline_points: ^2.0.0
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: images/app_icon.jpg
+  background_image: images/app_icon.jpg
+  android_12:
+    image: images/app_icon.jpg
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/app_icon.jpg"
+  min_sdk_android: 21
 
 dev_dependencies:
   flutter_test:

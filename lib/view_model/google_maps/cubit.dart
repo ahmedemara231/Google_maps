@@ -1,5 +1,5 @@
+import 'package:Google_maps/view_model/google_maps/states.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:cis_project/view_model/google_maps/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -49,20 +49,6 @@ class MapsCubit extends Cubit<GoogleMapsStates>
   }
 
 
-  void initOurStoreMarker()
-  {
-    Marker ourStoreMarker = const Marker(
-      infoWindow: InfoWindow(
-        title: 'Gardenia Store',
-      ),
-
-      markerId: MarkerId('1'),
-      position: LatLng(30.979353519902393, 31.1769525074946),
-    );
-    routeTrackingAppMarkers.add(ourStoreMarker);
-    emit(InitMarkers());
-  }
-
   late LocationData currentUserLocation;
   Set<Marker> routeTrackingAppMarkers = {};
   Future<void> getLocation()async
@@ -94,35 +80,22 @@ class MapsCubit extends Cubit<GoogleMapsStates>
     PlaceLocation? desLocation
 })async
   {
-    initOurStoreMarker();
     await location.changeSettings(
         distanceFilter: 2
     );
     location.onLocationChanged.listen((newLocationData) async{
       currentUserLocation = newLocationData;
 
-      if(!isAnotherRouteCalculated)
+      if(isAnotherRouteCalculated)
         {
           getRouteForLocation(
-            originLocation: PlaceLocation(
-              lat: newLocationData.latitude!,
-              long: newLocationData.longitude!,
-            ),
-            desLocation: PlaceLocation(
-              lat: 30.979353519902393,
-              long: 31.1769525074946,
-            ),
+              originLocation: PlaceLocation(
+                lat: newLocationData.latitude!,
+                long: newLocationData.longitude!,
+              ),
+              desLocation: desLocation!
           );
         }
-      else{
-        getRouteForLocation(
-          originLocation: PlaceLocation(
-            lat: newLocationData.latitude!,
-            long: newLocationData.longitude!,
-          ),
-          desLocation: desLocation!
-        );
-      }
 
       userMarker = Marker(
           markerId: const MarkerId('2'),

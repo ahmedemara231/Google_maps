@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,15 +75,21 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
                     hintText: 'Search here',
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                     controller: searchCont,
-                    onChanged: (searchedPlace)async
+                    onChanged: (searchedPlace)
                     {
-                      sessionToken ??= generateNewSessionToken();
+                      Timer(
+                          const Duration(milliseconds: 500),
+                              () async
+                          {
+                            sessionToken ??= generateNewSessionToken();
 
-                      log(sessionToken!);
-                      await MapsCubit.getInstance(context).getSuggestions(
-                        input: searchedPlace,
-                        sessionToken: sessionToken!,
+                            await MapsCubit.getInstance(context).getSuggestions(
+                              input: searchedPlace,
+                              sessionToken: sessionToken!,
+                            );
+                          }
                       );
+
                     },
 
                     fillColor: Colors.white,
@@ -173,7 +180,9 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
                               MapsCubit.getInstance(scaffoldKey.currentContext).currentUserLocation.latitude!,
                               MapsCubit.getInstance(scaffoldKey.currentContext).currentUserLocation.longitude!
                           );
-                          MapsCubit.getInstance(scaffoldKey.currentContext).myMapCont.animateCamera(CameraUpdate.newLatLng(startPoint));
+                          MapsCubit.getInstance(scaffoldKey.currentContext).myMapCont.animateCamera(
+                              CameraUpdate.newLatLng(startPoint)
+                          );
                         } ,
                         text: 'Show Route',
                         width: 2.8,
