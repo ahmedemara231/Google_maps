@@ -281,7 +281,7 @@ class MapsCubit extends Cubit<GoogleMapsStates>
 
           if(routePolyLine!.points.length < 3)
           {
-            await arrive();
+            await finish();
           }
           emit(GetLocationRouteSuccess());
         }
