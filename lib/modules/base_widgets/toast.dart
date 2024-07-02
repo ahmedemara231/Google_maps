@@ -1,4 +1,4 @@
-import 'package:Google_maps/extensions/mediaQuery.dart';
+import 'package:Mapy/extensions/mediaQuery.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'myText.dart';

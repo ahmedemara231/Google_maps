@@ -159,11 +159,11 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
                 ],
               ),
             ),
-            if(MapsCubit.getInstance(context).isAnotherRouteCalculated)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Padding(
+                  if(MapsCubit.getInstance(context).isRouteShown == false && MapsCubit.getInstance(context).isAnotherRouteCalculated)
+                    Padding(
                     padding: EdgeInsets.symmetric(vertical: 5.h),
                     child: Align(
                       alignment: Alignment.bottomCenter,
@@ -189,7 +189,8 @@ class _GoogleMapsViewState extends State<GoogleMapsView> {
                       ),
                     ),
                   ),
-                  Padding(
+                  if(MapsCubit.getInstance(context).isRouteShown)
+                    Padding(
                     padding: EdgeInsets.symmetric(vertical: 5.h),
                     child: Align(
                       alignment: Alignment.bottomCenter,

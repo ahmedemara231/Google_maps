@@ -1,6 +1,4 @@
-import 'dart:developer';
-
-import 'package:Google_maps/view_model/google_maps/states.dart';
+import 'package:Mapy/view_model/google_maps/states.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -248,6 +246,9 @@ class MapsCubit extends Cubit<GoogleMapsStates>
   late List<LatLng> routeModel;
   Polyline? routePolyLine;
   Set<Polyline> polyLines = {};
+
+  bool isRouteShown = false;
+
   Future<void> getRouteForLocation({
     required PlaceLocation originLocation,
     required PlaceLocation desLocation,
@@ -261,6 +262,8 @@ class MapsCubit extends Cubit<GoogleMapsStates>
     {
       if(getRouteResult.isSuccess())
         {
+          isRouteShown = true;
+
           routeModel = getRouteResult.getOrThrow();
           routePolyLine = Polyline(
             polylineId: const PolylineId('1'),
@@ -314,6 +317,7 @@ class MapsCubit extends Cubit<GoogleMapsStates>
   Future<void> finish()async
   {
     isAnotherRouteCalculated = false;
+    isRouteShown = false;
     polyLines = {};
     emit(FinishAndReturn());
     await playSound(SoundCode.finish);

@@ -1,5 +1,5 @@
-import 'package:Google_maps/view/maps/google_maps_view.dart';
-import 'package:Google_maps/view_model/google_maps/cubit.dart';
+import 'package:Mapy/view/maps/google_maps_view.dart';
+import 'package:Mapy/view_model/google_maps/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -1,4 +1,4 @@
-import 'package:Google_maps/model/google_maps_service/request_model.dart';
+import 'package:Mapy/model/google_maps_service/request_model.dart';
 import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'error_handling/errors.dart';
